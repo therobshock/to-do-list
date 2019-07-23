@@ -1,0 +1,51 @@
+first a welcome page is displayed
+
+it says something like "you got shit to do, so it's time to get your shit together"
+
+"We got this, so let's get started"
+
+Then a button click goes to the first item which is the name of a task
+
+the name of the task can be anything and is entered through a text input
+
+the name is stored as part of an object, probably a constructor. 
+
+the next button stores the input and displays the next question.
+
+A question appears, "What kind of shit is this?" and a selector of options is used to store the input. 
+
+Possible types are: Home, Work, Social, Personal
+
+Next button is pressed, input is stored, and next question is displayed depending on types
+
+a subcategory is chosen depending on anser to previous question.
+
+  if Home, choices will be something like: Chores, Maintainance, Family, Finances.
+
+  if Work, choices will be something like: Project, Relationships, Training, Employment
+
+  if Social, choices will be something like: Connect w/ friends, Connect w/ family, Plan Event, Meet New Friends/Partner
+
+  if Personal, choices will be something like: Physical Health, Mental Health, Education, Other
+
+Next button is pressed and inputs stored
+
+The next screens displays a set of inputs with range value choices 
+
+The questions are:
+
+  How soon should this get done?
+
+  How much will this affect other parts of your life if it doesn't get done?
+
+  What would happen if this never got done?
+
+  What would it cost financially if this never got done?
+
+The next button is pressed and all the results of the survey are displayed
+
+Upon submit all info is pushed to data array, a message is displayed and two option buttons of add more or get results
+
+If add more is pressed, the whole survey starts again.
+
+If get results a function that compares data in list and then displays results of list and prioity items. 

@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+}
+
+.header {
+  padding: 60px;
+  text-align: center;
+  background: #1abc9c;
+  color: white;
+  font-size: 30px;
+}
+
+.container {
+  padding: 0 15% 0 15%;
+}
+
+.interface {
+  height: 300px;
+  background-color: rgb(243, 234, 215);
+  border-radius: 10px;
+  padding: 10% 5% 10% 5%;
+}
