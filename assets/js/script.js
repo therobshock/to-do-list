@@ -59,6 +59,8 @@ function shitSurvey() {
   display.append(form);
   display.append("<button id='button'>Next</button>");
 
+  
+
   $(function(){  
       input.bind('keydown',function(e){ //on keydown for all textboxes  
         if(e.keyCode==13) //if this is enter key  
@@ -69,32 +71,37 @@ function shitSurvey() {
   $("#button").on("click", function() {
     
     var answer = input.val();
-    answers.push(answer);
 
-    if (index < surveyQuestions.length - 1) {
-      index++;
-      input = $(surveyQuestions[index].input);
+    if (!answer) {
+      alert("You got to name it something"); 
+    } else {
+      answers.push(answer);
       
-      questionDiv.text(surveyQuestions[index].question);
-      form.html("");
-
-      for (var i = 0; i < surveyQuestions[index].options.length; i++) {
-        var value = surveyQuestions[index].values[i];
-        var option = surveyQuestions[index].options[i];
-        var optionTag = $("<option>")
+      if (index < surveyQuestions.length - 1) {
+        index++;
+        input = $(surveyQuestions[index].input);
         
-        optionTag.attr("value", value);
-        optionTag.text(option);
-        input.append(optionTag);
+        questionDiv.text(surveyQuestions[index].question);
+        form.html("");
+        
+        for (var i = 0; i < surveyQuestions[index].options.length; i++) {
+          var value = surveyQuestions[index].values[i];
+          var option = surveyQuestions[index].options[i];
+          var optionTag = $("<option>")
+          
+          optionTag.attr("value", value);
+          optionTag.text(option);
+          input.append(optionTag);
+          
+        }
+        form.append(input);
         
       }
-      form.append(input);
-
+      else {
+        confirmShit(answers);
+      }
     }
-    else {
-      confirmShit(answers);
-    }
-  })
+  });
 }
 
 function confirmShit(arr) {
@@ -120,7 +127,6 @@ function confirmShit(arr) {
     item.rating = parseInt(valsAverage);
 
     shitList.push(item);
-    console.log(shitList);
 
     display.html("<h2>Confirmed!</h2>");
     displayAndContinue();
@@ -150,88 +156,6 @@ function displayAndContinue() {
   $("#end").on("click", function() {
     display.html("<h1>Here are you S#!T Lists:</h1>");
     shitAnalysis();
-  })
-
-}
-
-function shitAnalysis() {
-  const sortButtons = [
-    {
-      text: "Decide my Shit",
-      value: "decide"
-    }, 
-    {
-      text: "My Urgent Shit",
-      value: "urgent"
-    }, 
-    {
-      text: "My Effective Shit",
-      value: "effect"
-    }, 
-    {
-      text: "My Dangerous Shit",
-      value: "danger"
-    }, 
-    {
-      text: "My Costly Shit",
-      value: "cost"
-    }, 
-    {
-      text: "My Unhealthy Shit",
-      value: "health"
-    }
-  ];
-
-  const listDiv = $("<div>");
-
-  display.html("<h1>Let's Sort Out Your Shit...</h1>");
-  
-  for (var i = 0; i < sortButtons.length; i++) {
-    var button = $("<button>");
-    button.text(sortButtons[i].text);
-    button.attr("value", sortButtons[i].value);
-    display.append(button);
-  }
-  display.append(listDiv);
-  
-  $("button").on("click", function() {
-    var listTag = $("<ol>");
-    listDiv.html("");
-
-    switch(this.value) {
-      case "decide":
-        shitList.sort((a, b) => a.rating - b.rating);
-        listDiv.append("<h3>You Should Probably Take Care of this Shit First...</h3>");
-        break;
-      case "urgent":
-        shitList.sort((a, b) => a.urgency - b.urgency);
-        listDiv.append("<h3>You said this Shit is Urgent...</h3>");
-        break;
-      case "effect":
-        shitList.sort((a, b) => a.effect - b.effect);
-        listDiv.append("<h3>You said this Shit will effect your Life...</h3>");
-        break;
-      case "danger":
-        shitList.sort((a, b) => a.danger - b.danger);
-        listDiv.append("<h3>You said this Shit is Dangerous...</h3>");
-        break;
-      case "cost":
-        shitList.sort((a, b) => a.cost - b.cost);
-        listDiv.append("<h3>You said this Shit will be Costly...</h3>");
-        break;
-      case "health":
-        shitList.sort((a, b) => a.health - b.health);
-        listDiv.append("<h3>You said this Shit could be Unhealthy...</h3>");
-        break;
-    }
-   
-    for (var i = 0; i < 3; i++) {
-      var listItem = $("<li>");
-      listItem.append(shitList[i].name);
-      listTag.append(listItem);
-    }
-    listDiv.append(listTag);
-
   })
 
 }
