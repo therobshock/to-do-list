@@ -29,16 +29,19 @@ function shitAnalysis() {
   ];
 
   const listDiv = $("<div>");
+  const resultDiv = $("<div>");
 
-  display.html("<h1>Let's Sort Out Your Shit...</h1>");
+  display.append(resultDiv);
+
+  resultDiv.html("<h1>Let's Sort Out Your Shit...</h1>");
   
   for (var i = 0; i < sortButtons.length; i++) {
     var button = $("<button>");
     button.text(sortButtons[i].text);
     button.attr("value", sortButtons[i].value);
-    display.append(button);
+    resultDiv.append(button);
   }
-  display.append(listDiv);
+  resultDiv.append(listDiv);
   
   $("button").on("click", function() {
     var listTag = $("<ol>");

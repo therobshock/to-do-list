@@ -153,7 +153,7 @@ function displayAndContinue() {
   });
 
   $("#end").on("click", function() {
-    display.html("<h1>Here are you S#!T Lists:</h1>");
+    display.html("");
     shitAnalysis();
   })
 
