@@ -42,8 +42,7 @@ const surveyQuestions = [
   }
 ];
 
-
-const display = $("#display");
+// div id "display" is set to const display in home.js
 var shitList = [];
 
 function shitSurvey() {
@@ -52,14 +51,14 @@ function shitSurvey() {
   const form = $("<form>");
   var input = $(surveyQuestions[index].input);
   var answers = [];
+
+  display.html("");
   
   questionDiv.text(surveyQuestions[index].question);
   display.append(questionDiv);
   form.append(input);
   display.append(form);
   display.append("<button id='button'>Next</button>");
-
-  
 
   $(function(){  
       input.bind('keydown',function(e){ //on keydown for all textboxes  
@@ -160,4 +159,3 @@ function displayAndContinue() {
 
 }
 
-shitSurvey();

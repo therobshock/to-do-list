@@ -1,3 +1,5 @@
+// div id "display" is set to const display in home.js
+
 function shitAnalysis() {
   const sortButtons = [
     {
