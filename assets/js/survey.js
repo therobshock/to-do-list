@@ -145,7 +145,7 @@ function displayAndContinue() {
   
   div.append("<h2>Your Shit List So Far</h2>");
   for (var i = 0; i < shitList.length; i++) {
-    var deleteButton = $("<button onClick='listDelete(this.value)'>Delete</button>");
+    var deleteButton = $("<button name='shit-list' onClick='deleteShit(this.value, this.name)'>Delete</button>");
     var detailButton = $("<button onClick='shitDetail(this.value)'>Details</button>");
     deleteButton.attr("value", shitList[i].id);
     detailButton.attr("value", shitList[i].id);
@@ -161,7 +161,25 @@ function displayAndContinue() {
 
 }
 
-function listDelete(id) {
+function shitDetail(id) {
+  var div = $("<div>")
+  display.html("<h2>This Shit Right Here..</h2>");
+  for (var j = 0; j < shitList.length; j++) {
+    if (id == shitList[j].id) {
+      var delButton = $("<button name='detail' onClick='deleteShit(this.value, this.name)'>Delete</button>");
+      delButton.attr("value", shitList[j].id);
+      div.append("<h3>Name: " + shitList[j].name + "</h3>");
+      div.append("<p>Type: " + shitList[j].type + "</p>");
+      div.append(delButton);      
+    }
+  }
+  display.append(div);
+  display.append("<hr>");
+  display.append("<button onClick='shitSurvey()'>Add More Shit</button>");
+  display.append("<button onClick='shitAnalysis()'>Get Your Shit Together!</button>");
+}
+
+function deleteShit(id, name) {
   
   if (confirm("You really want to delete this Shit?")) {
     for (var j = 0; j < shitList.length; j++){
@@ -169,24 +187,15 @@ function listDelete(id) {
         shitList.splice(j, 1);
       }
     }
-    displayAndContinue();
+    switch(name){
+      case "shit-list" || "detail":
+        displayAndContinue();
+        break;
+      case "sort-list":
+        sortList();
+        break;
+     }
   } else {
     return;
   }
-}
-
-function shitDetail(id) {
-  var div = $("<div>")
-  display.html("<h2>This Shit Right Here..</h2>");
-  for (var j = 0; j < shitList.length; j++) {
-    if (id == shitList[j].id) {
-      div.append("<h3>Name: " + shitList[j].name + "</h3>");
-      div.append("<p>Type: " + shitList[j].type + "</p>");
-      
-    }
-  }
-  display.append(div);
-  display.append("<hr>");
-  display.append("<button onClick='shitSurvey()'>Add More Shit</button>");
-  display.append("<button onClick='shitAnalysis()'>Get Your Shit Together!</button>");
 }

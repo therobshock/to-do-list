@@ -33,6 +33,7 @@ function shitAnalysis() {
 
  
   display.html("");
+  listDiv.html("");
   display.append(resultDiv);
 
   resultDiv.html("<h1>Let's Sort Out Your Shit...</h1>");
@@ -86,7 +87,7 @@ function sortList() {
   for (var j = 0; j < 3 && j < shitList.length; j++) {
     var listItem = $("<li>");
     var detailButton = $("<button onClick='shitDetail(this.value)'>deets</button>");
-    var deleteButton = $("<button onClick='sortDelete(this.value)'>X</button>");
+    var deleteButton = $("<button name='sort-list' onClick='deleteShit(this.value, this.name)'>X</button>");
     detailButton.attr("value", shitList[j].id);
     deleteButton.attr("value", shitList[j].id);
     listItem.text(shitList[j].name);
@@ -98,7 +99,7 @@ function sortList() {
   optionsDiv.html("<h3>What Next?</h3>");
 
   var optionButtons = ["Whole List", "Add More Shit", "End This Shit"];
-  var optionFunctions = ["displayAndContinue()", "shitSurvey()", "welcome()"];
+  var optionFunctions = ["displayAndContinue()", "shitSurvey()", "confirmGoodbye()"];
   
   for (var i = 0; i < optionButtons.length; i++) {
     var optButton = $("<button>");
