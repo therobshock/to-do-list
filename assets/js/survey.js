@@ -44,6 +44,7 @@ const surveyQuestions = [
 
 // div id "display" is set to const display in home.js
 var shitList = [];
+var idValue = 0;
 
 function shitSurvey() {
   var index = 0;
@@ -105,6 +106,8 @@ function shitSurvey() {
 
 function confirmShit(arr) {
   var answers = arr;
+  idValue++;
+
   display.html("<h2>Here is your shit!</h2>");
   display.append("<h3>" + answers[0] + "</h3>");
   display.append("<button>Confirm</button>");
@@ -118,7 +121,8 @@ function confirmShit(arr) {
       danger: parseInt(answers[4]),
       cost: parseInt(answers[5]),
       health: parseInt(answers[6]),
-      rating: 0
+      rating: 0,
+      id: idValue
     };
 
     var totalVals = item.urgency + item.effect + item.danger + item.cost + item.health;
@@ -126,8 +130,8 @@ function confirmShit(arr) {
     item.rating = parseInt(valsAverage);
 
     shitList.push(item);
+    console.log(shitList);
 
-    display.html("<h2>Confirmed!</h2>");
     displayAndContinue();
     
   });
@@ -136,26 +140,48 @@ function confirmShit(arr) {
 
 function displayAndContinue() {
   var div = $("<div>");
+  display.html("<h2>Confirmed!</h2>");
   display.append(div);
-
+  
   div.append("<h2>Your Shit List So Far</h2>");
   for (var i = 0; i < shitList.length; i++) {
+    var deleteButton = $("<button onClick='listDelete(this.value)'>Delete</button>");
+    var detailButton = $("<button onClick='shitDetail(this.value)'>Details</button>");
+    deleteButton.attr("value", shitList[i].id);
+    detailButton.attr("value", shitList[i].id);
     div.append("<hr>");
     div.append("<h3>" + shitList[i].name + "</h3>");
     div.append("<p>Type: " + shitList[i].type + "</p>");
+    div.append(detailButton);
+    div.append(deleteButton);
   }
-  display.append("<button id='continue'>Add More Shit</button>");
-  display.append("<button id='end'>Get Your Shit Together!</button>");
-
-  $("#continue").on("click", function() {
-    display.html("");
-    shitSurvey();
-  });
-
-  $("#end").on("click", function() {
-    display.html("");
-    shitAnalysis();
-  })
+  display.append("<hr>");
+  display.append("<button onClick='shitSurvey()'>Add More Shit</button>");
+  display.append("<button onClick='shitAnalysis()'>Get Your Shit Together!</button>");
 
 }
 
+function listDelete(id) {
+  for (var j = 0; j < shitList.length; j++){
+    if (id == shitList[j].id) {
+      shitList.splice(j, 1);
+    }
+  }
+  displayAndContinue();
+}
+
+function shitDetail(id) {
+  var div = $("<div>")
+  display.html("<h2>This Shit Right Here..</h2>");
+  for (var j = 0; j < shitList.length; j++) {
+    if (id == shitList[j].id) {
+      div.append("<h3>Name: " + shitList[j].name + "</h3>");
+      div.append("<p>Type: " + shitList[j].type + "</p>");
+      
+    }
+  }
+  display.append(div);
+  display.append("<hr>");
+  display.append("<button onClick='shitSurvey()'>Add More Shit</button>");
+  display.append("<button onClick='shitAnalysis()'>Get Your Shit Together!</button>");
+}

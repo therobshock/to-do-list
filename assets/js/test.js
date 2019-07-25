@@ -9,7 +9,8 @@ var shitList = [
     danger: 1,
     cost: 5,
     health: 4,
-    rating: 3
+    rating: 3,
+    id: 1
   },
   {
     name: "B",
@@ -19,7 +20,8 @@ var shitList = [
     danger: 2,
     cost: 1,
     health: 5,
-    rating: 2
+    rating: 2,
+    id: 2
   },
   {
     name: "C",
@@ -29,7 +31,8 @@ var shitList = [
     danger: 5,
     cost: 4,
     health: 1,
-    rating: 1
+    rating: 1,
+    id: 3
   },
   {
     name: "D",
@@ -39,182 +42,54 @@ var shitList = [
     danger: 4,
     cost: 2,
     health: 3,
-    rating: 5
+    rating: 5,
+    id: 4
   },
 ]
 
-function shitAnalysis2() {
-  const sortButtons = [
-    {
-      text: "Decide my Shit",
-      value: "decide"
-    }, 
-    {
-      text: "My Urgent Shit",
-      value: "urgent"
-    }, 
-    {
-      text: "My Effective Shit",
-      value: "effect"
-    }, 
-    {
-      text: "My Dangerous Shit",
-      value: "danger"
-    }, 
-    {
-      text: "My Costly Shit",
-      value: "cost"
-    }, 
-    {
-      text: "My Unhealthy Shit",
-      value: "health"
-    }
-  ];
-
-  const listDiv = $("<div>");
-
-  display.html("<h1>Let's Sort Out Your Shit...</h1>");
+function displayAndContinue() {
+  var div = $("<div>");
+  display.html("<h2>Confirmed!</h2>");
+  display.append(div);
   
-  for (var i = 0; i < sortButtons.length; i++) {
-    var button = $("<button>");
-    button.text(sortButtons[i].text);
-    button.attr("value", sortButtons[i].value);
-    display.append(button);
+  div.append("<h2>Your Shit List So Far</h2>");
+  for (var i = 0; i < shitList.length; i++) {
+    var deleteButton = $("<button onClick='listDelete(this.value)'>Delete</button>");
+    var detailButton = $("<button onClick='shitDetail(this.value)'>Details</button>");
+    deleteButton.attr("value", shitList[i].id);
+    detailButton.attr("value", shitList[i].id);
+    div.append("<hr>");
+    div.append("<h3>" + shitList[i].name + "</h3>");
+    div.append("<p>Type: " + shitList[i].type + "</p>");
+    div.append(detailButton);
+    div.append(deleteButton);
   }
-  display.append(listDiv);
-  
-  $("button").on("click", function() {
-    var listTag = $("<ol>");
-    listDiv.html("");
-
-    switch(this.value) {
-      case "decide":
-        shitList.sort((a, b) => a.rating - b.rating);
-        listDiv.append("<h3>You Should Probably Take Care of this Shit First...</h3>");
-        break;
-      case "urgent":
-        shitList.sort((a, b) => a.urgency - b.urgency);
-        listDiv.append("<h3>You said this Shit is Urgent...</h3>");
-        break;
-      case "effect":
-        shitList.sort((a, b) => a.effect - b.effect);
-        listDiv.append("<h3>You said this Shit will effect your Life...</h3>");
-        break;
-      case "danger":
-        shitList.sort((a, b) => a.danger - b.danger);
-        listDiv.append("<h3>You said this Shit is Dangerous...</h3>");
-        break;
-      case "cost":
-        shitList.sort((a, b) => a.cost - b.cost);
-        listDiv.append("<h3>You said this Shit will be Costly...</h3>");
-        break;
-      case "health":
-        shitList.sort((a, b) => a.health - b.health);
-        listDiv.append("<h3>You said this Shit could be Unhealthy...</h3>");
-        break;
-    }
-   
-    for (var i = 0; i < 3; i++) {
-      var listItem = $("<li>");
-      listItem.append(shitList[i].name);
-      listTag.append(listItem);
-    }
-    listDiv.append(listTag);
-
-  })
+  display.append("<hr>");
+  display.append("<button onClick='shitSurvey()'>Add More Shit</button>");
+  display.append("<button onClick='shitAnalysis()'>Get Your Shit Together!</button>");
 
 }
 
-shitAnalysis2();
-
-function shitAnalysis() {
-  const decide = $("<button >Decide my Shit</button>");
-  const urgent = $("<button>My Urgent Shit</button>");
-  const effect = $("<button>My Effective Shit</button>");
-  const danger = $("<button>My Dangerous Shit</button>");
-  const cost = $("<button>My Costly Shit</button>");
-  const health = $("<button>My Unhealthy Shit</button>");
-  const listDiv = $("<div>");
-  const listTag = $("<ol>");
-  
-  display.html("<h1>Let's sort out your shit...</h1>");
-  display.append(decide);
-  display.append(urgent);
-  display.append(effect);
-  display.append(danger);
-  display.append(cost);
-  display.append(health);
-  display.append(listDiv);
-
-  decide.on("click", function() {
-    shitList.sort((a, b) => a.rating - b.rating);
-    listDiv.html("");
-    listTag.html("");
-    listDiv.append("<h3>You Should Probably Take Care of this Shit First...</h3>");
-    listDiv.append(listTag);
-  
-    listShit(listTag);
- 
-  });
-
-  urgent.on("click", function() {
-    shitList.sort((a, b) => a.urgency - b.urgency);
-    listDiv.html("");
-    listTag.html("");
-    listDiv.append("<h3>You said this Shit is Urgent...</h3>");
-    listDiv.append(listTag);
-  
-    listShit(listTag);
-  });
-
-  effect.on("click", function() {
-    shitList.sort((a, b) => a.effect - b.effect);
-    listDiv.html("");
-    listTag.html("");
-    listDiv.append("<h3>You said this Shit will effect your Life...</h3>");
-    listDiv.append(listTag);
-  
-    listShit(listTag);
-  });
-
-  danger.on("click", function() {
-    shitList.sort((a, b) => a.danger - b.danger);
-    listDiv.html("");
-    listTag.html("");
-    listDiv.append("<h3>You said this Shit is Dangerous...</h3>");
-    listDiv.append(listTag);
-  
-    listShit(listTag);
-  });
-
-  cost.on("click", function() {
-    shitList.sort((a, b) => a.cost - b.cost);
-    listDiv.html("");
-    listTag.html("");
-    listDiv.append("<h3>You said this Shit will be Costly...</h3>");
-    listDiv.append(listTag);
-  
-    listShit(listTag);
-  });
-
-  health.on("click", function() {
-    shitList.sort((a, b) => a.health - b.health);
-    listDiv.html("");
-    listTag.html("");
-    listDiv.append("<h3>You said this Shit could be Unhealthy...</h3>");
-    listDiv.append(listTag);
-  
-    listShit(listTag);
-  });
-
-};
-
-function listShit(div) {
-  for (var i = 0; i < 3; i++) {
-    var listItem = $("<li>");
-    listItem.append(shitList[i].name);
-    div.append(listItem);
+function listDelete(id) {
+  for (var j = 0; j < shitList.length; j++){
+    if (id == shitList[j].id) {
+      shitList.splice(j, 1);
+    }
   }
+  displayAndContinue();
 }
 
-// shitAnalysis();
+function shitDetail(id) {
+  var div = $("<div>")
+  display.html("<h2>This Shit Right Here..</h2>");
+  for (var j = 0; j < shitList.length; j++) {
+    if (id == shitList[j].id) {
+      div.append("<h3>Name: " + shitList[j].name + "</h3>");
+      div.append("<p>Type: " + shitList[j].type + "</p>");
+      
+    }
+  }
+  display.append(div);
+}
+
+displayAndContinue();

@@ -1,4 +1,7 @@
 // div id "display" is set to const display in home.js
+var resultDiv = $("<div>");
+var listDiv = $("<div>");
+var optionsDiv = $("<div>");
 
 function shitAnalysis() {
   const sortButtons = [
@@ -28,9 +31,8 @@ function shitAnalysis() {
     }
   ];
 
-  const listDiv = $("<div>");
-  const resultDiv = $("<div>");
-
+ 
+  display.html("");
   display.append(resultDiv);
 
   resultDiv.html("<h1>Let's Sort Out Your Shit...</h1>");
@@ -44,8 +46,6 @@ function shitAnalysis() {
   resultDiv.append(listDiv);
   
   $("button").on("click", function() {
-    var listTag = $("<ol>");
-    listDiv.html("");
 
     switch(this.value) {
       case "decide":
@@ -73,14 +73,49 @@ function shitAnalysis() {
         listDiv.append("<h3>You said this Shit could be Unhealthy...</h3>");
         break;
     }
-
-    for (var j = 0; j < 3 && j < shitList.length; j++) {
-      var listItem = $("<li>");
-      listItem.text(shitList[j].name);
-      listTag.append(listItem);
-    }
-    listDiv.append(listTag);
-
+    sortList();
+    
   })
 
 }
+
+function sortList() {
+  var listTag = $("<ol>");
+  listDiv.html("");
+
+  for (var j = 0; j < 3 && j < shitList.length; j++) {
+    var listItem = $("<li>");
+    var detailButton = $("<button onClick='shitDetail(this.value)'>deets</button>");
+    var deleteButton = $("<button onClick='sortDelete(this.value)'>X</button>");
+    detailButton.attr("value", shitList[j].id);
+    deleteButton.attr("value", shitList[j].id);
+    listItem.text(shitList[j].name);
+    listItem.append(detailButton);
+    listItem.append(deleteButton);
+    listTag.append(listItem);
+  }
+  listDiv.append(listTag);
+  optionsDiv.html("<h3>What Next?</h3>");
+
+  var optionButtons = ["Whole List", "Add More Shit", "End This Shit"];
+  var optionFunctions = ["displayAndContinue()", "shitSurvey()", "welcome()"];
+  
+  for (var i = 0; i < optionButtons.length; i++) {
+    var optButton = $("<button>");
+    optButton.attr("onClick", optionFunctions[i]);
+    optButton.text(optionButtons[i]);
+    optionsDiv.append(optButton);
+  }
+  
+  display.append(optionsDiv);
+}
+
+function sortDelete(id) {
+  for (var j = 0; j < shitList.length; j++){
+    if (id == shitList[j].id) {
+      shitList.splice(j, 1);
+    }
+  }
+  sortList();
+}
+
