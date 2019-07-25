@@ -162,12 +162,17 @@ function displayAndContinue() {
 }
 
 function listDelete(id) {
-  for (var j = 0; j < shitList.length; j++){
-    if (id == shitList[j].id) {
-      shitList.splice(j, 1);
+  
+  if (confirm("You really want to delete this Shit?")) {
+    for (var j = 0; j < shitList.length; j++){
+      if (id == shitList[j].id) {
+        shitList.splice(j, 1);
+      }
     }
+    displayAndContinue();
+  } else {
+    return;
   }
-  displayAndContinue();
 }
 
 function shitDetail(id) {
