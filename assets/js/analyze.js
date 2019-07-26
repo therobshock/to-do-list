@@ -110,18 +110,3 @@ function sortList() {
   
   display.append(optionsDiv);
 }
-
-function sortDelete(id) {
-  if (confirm("Delete this Shit for reals?")) {
-
-    for (var j = 0; j < shitList.length; j++){
-      if (id == shitList[j].id) {
-        shitList.splice(j, 1);
-      }
-    }
-    sortList();
-  } else {
-    return;
-  }
-}
-

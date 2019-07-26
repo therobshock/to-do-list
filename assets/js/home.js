@@ -21,6 +21,7 @@ function confirmGoodbye() {
 function goodbye() {
   if (confirm("Sure you wanna go?")) {
     shitList = [];
+    idValue = 0;
     display.html("<h2>Good Luck!</h2>");
     display.append("<button onClick='welcome()'>Start Again</button>");
   } else {

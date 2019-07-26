@@ -130,7 +130,6 @@ function confirmShit(arr) {
     item.rating = parseInt(valsAverage);
 
     shitList.push(item);
-    console.log(shitList);
 
     displayAndContinue();
     
@@ -144,6 +143,7 @@ function displayAndContinue() {
   display.append(div);
   
   div.append("<h2>Your Shit List So Far</h2>");
+  
   for (var i = 0; i < shitList.length; i++) {
     var deleteButton = $("<button name='shit-list' onClick='deleteShit(this.value, this.name)'>Delete</button>");
     var detailButton = $("<button onClick='shitDetail(this.value)'>Details</button>");
@@ -181,7 +181,7 @@ function shitDetail(id) {
 
 function deleteShit(id, name) {
   
-  if (confirm("You really want to delete this Shit?")) {
+  if (confirm("Delete this Shit for Reals?")) {
     for (var j = 0; j < shitList.length; j++){
       if (id == shitList[j].id) {
         shitList.splice(j, 1);
