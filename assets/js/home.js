@@ -2,9 +2,14 @@ const display = $("#display");
 
 function welcome() {
   const button = $("<button>");
+  const gifDiv = $("<div>");
+  const gif = $('<iframe src="https://giphy.com/embed/woTdBa435yy6A" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/get-well-then-woTdBa435yy6A">via GIPHY</a></p>')
+
+  // gifDiv.append(gif);
   display.html("<h3>Put your Shit here, get it sorted out...</h3>");
   button.text("Get Started!");
   display.append(button);
+  // display.append(gifDiv);
   
   button.on("click", shitSurvey);
 }

@@ -1,7 +1,8 @@
 // div id "display" is set to const display in home.js
-var resultDiv = $("<div>");
-var listDiv = $("<div>");
-var optionsDiv = $("<div>");
+var resultDiv = $("<div id='results'>");
+var listDiv = $("<div id='list'>");
+var optionsDiv = $("<div id='options'>");
+var sortButtonDiv = $("<div id='sort-buttons'>");
 
 function shitAnalysis() {
   const sortButtons = [
@@ -31,47 +32,49 @@ function shitAnalysis() {
     }
   ];
 
- 
-  display.html("");
-  listDiv.html("");
-  display.append(resultDiv);
-
-  resultDiv.html("<h1>Let's Sort Out Your Shit...</h1>");
+  var resHeader = $("<h3>");
+  
+  display.html("<h1>Let's Sort Out Your Shit...</h1>");
+  listDiv.empty();
+  resultDiv.empty();
   
   for (var i = 0; i < sortButtons.length; i++) {
     var button = $("<button>");
     button.text(sortButtons[i].text);
+    button.attr("value", "c-button");
     button.attr("value", sortButtons[i].value);
-    resultDiv.append(button);
+    sortButtonDiv.append(button);
   }
-  resultDiv.append(listDiv);
+  display.append(sortButtonDiv);
+  display.append(resultDiv);
+  resultDiv.append(resHeader);
   
   $("button").on("click", function() {
 
     switch(this.value) {
       case "decide":
         shitList.sort((a, b) => a.rating - b.rating);
-        listDiv.append("<h3>You Should Probably Take Care of this Shit First...</h3>");
+        resHeader.text("You Should Probably Take Care of this Shit First...");
         break;
       case "urgent":
         shitList.sort((a, b) => a.urgency - b.urgency);
-        listDiv.append("<h3>You said this Shit is Urgent...</h3>");
+        resHeader.text("You said this Shit is Urgent...");
         break;
       case "effect":
         shitList.sort((a, b) => a.effect - b.effect);
-        listDiv.append("<h3>You said this Shit will effect your Life...</h3>");
+        resHeader.text("You said this Shit will effect your Life...");
         break;
       case "danger":
         shitList.sort((a, b) => a.danger - b.danger);
-        listDiv.append("<h3>You said this Shit is Dangerous...</h3>");
+        resHeader.text("You said this Shit is Dangerous...");
         break;
       case "cost":
         shitList.sort((a, b) => a.cost - b.cost);
-        listDiv.append("<h3>You said this Shit will be Costly...</h3>");
+        resHeader.text("You said this Shit will be Costly...");
         break;
       case "health":
         shitList.sort((a, b) => a.health - b.health);
-        listDiv.append("<h3>You said this Shit could be Unhealthy...</h3>");
+        resHeader.text("You said this Shit could be Unhealthy...");
         break;
     }
     sortList();
@@ -82,12 +85,14 @@ function shitAnalysis() {
 
 function sortList() {
   var listTag = $("<ol>");
+  sortButtonDiv.empty();
   listDiv.html("");
+  resultDiv.append(listDiv);
 
   for (var j = 0; j < 3 && j < shitList.length; j++) {
     var listItem = $("<li>");
-    var detailButton = $("<button onClick='shitDetail(this.value)'>deets</button>");
-    var deleteButton = $("<button name='sort-list' onClick='deleteShit(this.value, this.name)'>X</button>");
+    var detailButton = $("<button class='l-button' onClick='shitDetail(this.value)'>deets</button>");
+    var deleteButton = $("<button class='l-button' name='sort-list' onClick='deleteShit(this.value, this.name)'>X</button>");
     detailButton.attr("value", shitList[j].id);
     deleteButton.attr("value", shitList[j].id);
     listItem.text(shitList[j].name);
@@ -98,8 +103,8 @@ function sortList() {
   listDiv.append(listTag);
   optionsDiv.html("<h3>What Next?</h3>");
 
-  var optionButtons = ["Whole List", "Add More Shit", "End This Shit"];
-  var optionFunctions = ["displayAndContinue()", "shitSurvey()", "confirmGoodbye()"];
+  var optionButtons = ["Back to Sort", "Whole List", "Add More Shit", "End This Shit"];
+  var optionFunctions = ["shitAnalysis()", "displayAndContinue()", "shitSurvey()", "confirmGoodbye()"];
   
   for (var i = 0; i < optionButtons.length; i++) {
     var optButton = $("<button>");

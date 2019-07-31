@@ -145,8 +145,8 @@ function displayAndContinue() {
   div.append("<h2>Your Shit List So Far</h2>");
   
   for (var i = 0; i < shitList.length; i++) {
-    var deleteButton = $("<button name='shit-list' onClick='deleteShit(this.value, this.name)'>Delete</button>");
-    var detailButton = $("<button onClick='shitDetail(this.value)'>Details</button>");
+    var deleteButton = $("<button class='l-button' name='shit-list' onClick='deleteShit(this.value, this.name)'>Delete</button>");
+    var detailButton = $("<button class='l-button' onClick='shitDetail(this.value)'>Details</button>");
     deleteButton.attr("value", shitList[i].id);
     detailButton.attr("value", shitList[i].id);
     div.append("<hr>");
@@ -166,7 +166,7 @@ function shitDetail(id) {
   display.html("<h2>This Shit Right Here..</h2>");
   for (var j = 0; j < shitList.length; j++) {
     if (id == shitList[j].id) {
-      var delButton = $("<button name='detail' onClick='deleteShit(this.value, this.name)'>Delete</button>");
+      var delButton = $("<button class='l-button' name='detail' onClick='deleteShit(this.value, this.name)'>Delete</button>");
       delButton.attr("value", shitList[j].id);
       div.append("<h3>Name: " + shitList[j].name + "</h3>");
       div.append("<p>Type: " + shitList[j].type + "</p>");
@@ -188,11 +188,14 @@ function deleteShit(id, name) {
       }
     }
     switch(name){
-      case "shit-list" || "detail":
+      case "shit-list":
         displayAndContinue();
         break;
       case "sort-list":
         sortList();
+        break;
+        case "detail":
+        displayAndContinue();
         break;
      }
   } else {
