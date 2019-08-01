@@ -140,8 +140,12 @@ function confirmShit(arr) {
 function displayAndContinue() {
   var div = $("<div>");
   display.html("<h2>Confirmed!</h2>");
-  display.append(div);
   
+  display.append("<button onClick='shitSurvey()'>Add More Shit</button>");
+  display.append("<button onClick='shitAnalysis()'>Get Your Shit Together!</button>");
+  display.append("<hr>");
+
+  display.append(div);
   div.append("<h2>Your Shit List So Far</h2>");
   
   for (var i = 0; i < shitList.length; i++) {
@@ -149,15 +153,12 @@ function displayAndContinue() {
     var detailButton = $("<button class='l-button' onClick='shitDetail(this.value)'>Details</button>");
     deleteButton.attr("value", shitList[i].id);
     detailButton.attr("value", shitList[i].id);
-    div.append("<hr>");
     div.append("<h3>" + shitList[i].name + "</h3>");
     div.append("<p>Type: " + shitList[i].type + "</p>");
     div.append(detailButton);
     div.append(deleteButton);
+    div.append("<hr>");
   }
-  display.append("<hr>");
-  display.append("<button onClick='shitSurvey()'>Add More Shit</button>");
-  display.append("<button onClick='shitAnalysis()'>Get Your Shit Together!</button>");
 
 }
 
@@ -176,6 +177,7 @@ function shitDetail(id) {
   display.append(div);
   display.append("<hr>");
   display.append("<button onClick='shitSurvey()'>Add More Shit</button>");
+  display.append("<button onClick='displayAndContinue()'>Whole List</button>");
   display.append("<button onClick='shitAnalysis()'>Get Your Shit Together!</button>");
 }
 
