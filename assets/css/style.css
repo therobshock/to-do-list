@@ -1,19 +1,15 @@
 * {
   box-sizing: border-box;
-  /* color: rgb(184, 158, 11); */
   color: rgba(60, 175, 255, 0.65);
-
-  /* font-family: 'Patrick Hand SC', cursive;  */
-  /* good all caps style top contender */
-
   font-family: 'Walter Turncoat', cursive; 
-  /* even better than the above */
-
 }
 
-body {
-  /* background-color: rgb(53, 49, 75); */
-  background-color: rgb(25, 30, 25);
+html { 
+  background: linear-gradient(15deg, rgba(25,20,25,1) 0%, rgba(25,30,25,1) 65%, rgb(54, 75, 45) 100%) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .header {
@@ -21,6 +17,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 2%;
 }
 
 .header h1 {
@@ -41,6 +38,14 @@ body {
  */
 .display h3 {
   transform: rotate(-1deg);
+}
+
+.survey {
+  width: 400px;
+}
+
+.survey p {
+  height: 2em;
 }
 
 input, select {
@@ -81,4 +86,20 @@ button.l-button {
   width: auto;
   padding: 2px;
   box-shadow: 0 1px 0 0.5px #999;
+}
+
+.s-button {
+  position: relative;
+  float: right;
+}
+
+.sort-item {
+  border-bottom: 2px dotted  rgba(60, 175, 255, 0.65);
+  padding: 10px 0 15px 0;
+}
+
+@media only screen and (max-width: 425px) {
+  .survey {
+    width: 300px;
+  }
 }

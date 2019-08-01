@@ -90,14 +90,14 @@ function sortList() {
   resultDiv.append(listDiv);
 
   for (var j = 0; j < 3 && j < shitList.length; j++) {
-    var listItem = $("<li>");
-    var detailButton = $("<button class='l-button' onClick='shitDetail(this.value)'>deets</button>");
-    var deleteButton = $("<button class='l-button' name='sort-list' onClick='deleteShit(this.value, this.name)'>X</button>");
+    var listItem = $("<li class='sort-item'>");
+    var detailButton = $("<button class='l-button s-button' onClick='shitDetail(this.value)'>deets</button>");
+    var deleteButton = $("<button class='l-button s-button' name='sort-list' onClick='deleteShit(this.value, this.name)'>X</button>");
     detailButton.attr("value", shitList[j].id);
     deleteButton.attr("value", shitList[j].id);
     listItem.text(shitList[j].name);
-    listItem.append(detailButton);
     listItem.append(deleteButton);
+    listItem.append(detailButton);
     listTag.append(listItem);
   }
   listDiv.append(listTag);

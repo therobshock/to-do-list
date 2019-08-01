@@ -48,6 +48,7 @@ var idValue = 0;
 
 function shitSurvey() {
   var index = 0;
+  const div = $("<div class='survey'>")
   const questionDiv = $("<p>");
   const form = $("<form>");
   var input = $(surveyQuestions[index].input);
@@ -56,10 +57,11 @@ function shitSurvey() {
   display.html("");
   
   questionDiv.text(surveyQuestions[index].question);
-  display.append(questionDiv);
+  display.append(div);
+  div.append(questionDiv);
   form.append(input);
-  display.append(form);
-  display.append("<button id='button'>Next</button>");
+  div.append(form);
+  div.append("<button id='button'>Next</button>");
 
   $(function(){  
       input.bind('keydown',function(e){ //on keydown for all textboxes  
@@ -163,7 +165,8 @@ function displayAndContinue() {
 }
 
 function shitDetail(id) {
-  var div = $("<div>")
+  var div = $("<div>");
+  var ul = $("<ul>");
   display.html("<h2>This Shit Right Here..</h2>");
   for (var j = 0; j < shitList.length; j++) {
     if (id == shitList[j].id) {
@@ -171,6 +174,14 @@ function shitDetail(id) {
       delButton.attr("value", shitList[j].id);
       div.append("<h3>Name: " + shitList[j].name + "</h3>");
       div.append("<p>Type: " + shitList[j].type + "</p>");
+      div.append("<p>Values (1 highest, 5 lowest): </p>");
+      ul.append("<li>Urgency: " + shitList[j].urgency + " </li>");
+      ul.append("<li>Effect: " +  shitList[j].effect + " </li>");
+      ul.append("<li>Danger: " + shitList[j].danger + " </li>");
+      ul.append("<li>Cost: " + shitList[j].cost + " </li>");
+      ul.append("<li>Health: " + shitList[j].health + " </li>");
+      ul.append("<li>Rating: " + shitList[j].rating + " </li>");
+      div.append(ul);
       div.append(delButton);      
     }
   }
