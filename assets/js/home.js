@@ -10,8 +10,12 @@ function welcome() {
   button.text("Get Started!");
   display.append(button);
   // display.append(gifDiv);
+
+  display.fadeToggle("slow");
   
-  button.on("click", shitSurvey);
+  button.on("click", function(){
+    display.fadeToggle(shitSurvey);
+  });
 }
 
 function confirmGoodbye() {

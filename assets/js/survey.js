@@ -54,6 +54,7 @@ function shitSurvey() {
   var input = $(surveyQuestions[index].input);
   var answers = [];
 
+
   display.html("");
   
   questionDiv.text(surveyQuestions[index].question);
@@ -62,6 +63,8 @@ function shitSurvey() {
   form.append(input);
   div.append(form);
   div.append("<button id='button'>Next</button>");
+
+  display.fadeToggle("slow");
 
   $(function(){  
       input.bind('keydown',function(e){ //on keydown for all textboxes  
@@ -141,13 +144,13 @@ function confirmShit(arr) {
 
 function displayAndContinue() {
   var div = $("<div>");
+  display.fadeOut();
   display.html("<h2>Confirmed!</h2>");
   
   display.append("<button onClick='shitSurvey()'>Add More Shit</button>");
   display.append("<button onClick='shitAnalysis()'>Get Your Shit Together!</button>");
   display.append("<hr>");
 
-  display.append(div);
   div.append("<h2>Your Shit List So Far</h2>");
   
   for (var i = 0; i < shitList.length; i++) {
@@ -161,6 +164,8 @@ function displayAndContinue() {
     div.append(deleteButton);
     div.append("<hr>");
   }
+  display.append(div);
+  display.fadeIn();
 
 }
 

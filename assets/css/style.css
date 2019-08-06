@@ -32,10 +32,10 @@ html {
   align-items: center;
 }
 
-/* .display {
-  min-width: 450px;
+.display {
+  display: none;
 }
- */
+
 .display h3 {
   transform: rotate(-1deg);
 }
