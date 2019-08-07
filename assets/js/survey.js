@@ -46,12 +46,13 @@ const surveyQuestions = [
 var shitList = [];
 var idValue = 0;
 
+
 function shitSurvey() {
   var index = 0;
-  const div = $("<div class='survey'>")
+  const div = $("<div class='survey'>");
   const questionDiv = $("<p>");
-  const form = $("<form>");
   var input = $(surveyQuestions[index].input);
+  const form = $("<form>");
   var answers = [];
 
 
@@ -64,7 +65,7 @@ function shitSurvey() {
   div.append(form);
   div.append("<button id='button'>Next</button>");
 
-  display.fadeToggle("slow");
+  display.fadeIn();
 
   $(function(){  
       input.bind('keydown',function(e){ //on keydown for all textboxes  
@@ -74,38 +75,41 @@ function shitSurvey() {
 });  
   
   $("#button").on("click", function() {
-    
     var answer = input.val();
 
     if (!answer) {
       alert("You got to name it something"); 
     } else {
-      answers.push(answer);
+      display.fadeOut(function() {
+        answers.push(answer);
       
-      if (index < surveyQuestions.length - 1) {
-        index++;
-        input = $(surveyQuestions[index].input);
-        
-        questionDiv.text(surveyQuestions[index].question);
-        form.html("");
-        
-        for (var i = 0; i < surveyQuestions[index].options.length; i++) {
-          var value = surveyQuestions[index].values[i];
-          var option = surveyQuestions[index].options[i];
-          var optionTag = $("<option>")
+        if (index < surveyQuestions.length - 1) {
+          index++;
+          input = $(surveyQuestions[index].input);
           
-          optionTag.attr("value", value);
-          optionTag.text(option);
-          input.append(optionTag);
+          questionDiv.text(surveyQuestions[index].question);
+          form.html("");
+          
+          for (var i = 0; i < surveyQuestions[index].options.length; i++) {
+            var value = surveyQuestions[index].values[i];
+            var option = surveyQuestions[index].options[i];
+            var optionTag = $("<option>")
+            
+            optionTag.attr("value", value);
+            optionTag.text(option);
+            input.append(optionTag);
+            
+          }
+          form.append(input);
+          display.fadeIn();
           
         }
-        form.append(input);
-        
-      }
-      else {
-        confirmShit(answers);
-      }
-    }
+        else {
+          confirmShit(answers);
+        }
+    });    
+  }
+    
   });
 }
 
@@ -116,39 +120,41 @@ function confirmShit(arr) {
   display.html("<h2>Here is your shit!</h2>");
   display.append("<h3>" + answers[0] + "</h3>");
   display.append("<button>Confirm</button>");
+  display.fadeIn();
 
   $("button").on("click", function() {
-    var item = {
-      name: answers[0],
-      type: answers[1],
-      urgency: parseInt(answers[2]),
-      effect: parseInt(answers[3]),
-      danger: parseInt(answers[4]),
-      cost: parseInt(answers[5]),
-      health: parseInt(answers[6]),
-      rating: 0,
-      id: idValue
-    };
-
-    var totalVals = item.urgency + item.effect + item.danger + item.cost + item.health;
-    var valsAverage = totalVals / 5;
-    item.rating = parseInt(valsAverage);
-
-    shitList.push(item);
-
-    displayAndContinue();
+   
+      var item = {
+        name: answers[0],
+        type: answers[1],
+        urgency: parseInt(answers[2]),
+        effect: parseInt(answers[3]),
+        danger: parseInt(answers[4]),
+        cost: parseInt(answers[5]),
+        health: parseInt(answers[6]),
+        rating: 0,
+        id: idValue
+      };
     
-  });
+      var totalVals = item.urgency + item.effect + item.danger + item.cost + item.health;
+      var valsAverage = totalVals / 5;
+      item.rating = parseInt(valsAverage);
+    
+      shitList.push(item);
+    
+      display.fadeOut(displayAndContinue);
+    });
 
 };
 
+
 function displayAndContinue() {
   var div = $("<div>");
-  display.fadeOut();
   display.html("<h2>Confirmed!</h2>");
   
-  display.append("<button onClick='shitSurvey()'>Add More Shit</button>");
-  display.append("<button onClick='shitAnalysis()'>Get Your Shit Together!</button>");
+  display.append("<button onClick='display.fadeOut(shitSurvey)'>Add More Shit</button>");
+  display.append("<button onClick='display.fadeOut(shitAnalysis)'>Get Your Shit Together!</button>");
+  display.append("<button onClick='display.fadeOut(confirmGoodbye)'>End This Shit!</button>");
   display.append("<hr>");
 
   div.append("<h2>Your Shit List So Far</h2>");
@@ -172,7 +178,6 @@ function displayAndContinue() {
 function shitDetail(id) {
   var div = $("<div>");
   var ul = $("<ul>");
-  display.html("<h2>This Shit Right Here..</h2>");
   for (var j = 0; j < shitList.length; j++) {
     if (id == shitList[j].id) {
       var delButton = $("<button class='l-button' name='detail' onClick='deleteShit(this.value, this.name)'>Delete</button>");
@@ -190,11 +195,16 @@ function shitDetail(id) {
       div.append(delButton);      
     }
   }
-  display.append(div);
-  display.append("<hr>");
-  display.append("<button onClick='shitSurvey()'>Add More Shit</button>");
-  display.append("<button onClick='displayAndContinue()'>Whole List</button>");
-  display.append("<button onClick='shitAnalysis()'>Get Your Shit Together!</button>");
+  display.fadeOut(function(){
+      display.html("<h2>This Shit Right Here..</h2>");
+      display.append(div);
+      display.append("<hr>");
+      display.append("<button onClick='display.fadeOut(shitSurvey)'>Add More Shit</button>");
+      display.append("<button onClick='display.fadeOut(displayAndContinue)'>Whole List</button>");
+      display.append("<button onClick='display.fadeOut(shitAnalysis)'>Get Your Shit Together!</button>");
+      display.append("<button onClick='display.fadeOut(confirmGoodbye)'>End This Shit!</button>");
+      display.fadeIn();
+    });
 }
 
 function deleteShit(id, name) {
@@ -207,13 +217,13 @@ function deleteShit(id, name) {
     }
     switch(name){
       case "shit-list":
-        displayAndContinue();
+        display.fadeOut(displayAndContinue);
         break;
       case "sort-list":
-        sortList();
+        display.fadeOut(sortList);
         break;
-        case "detail":
-        displayAndContinue();
+      case "detail":
+        display.fadeOut(displayAndContinue);
         break;
      }
   } else {

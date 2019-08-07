@@ -11,28 +11,33 @@ function welcome() {
   display.append(button);
   // display.append(gifDiv);
 
-  display.fadeToggle("slow");
+  display.fadeIn("slow");
   
   button.on("click", function(){
-    display.fadeToggle(shitSurvey);
+    display.fadeOut(shitSurvey);
   });
 }
 
 function confirmGoodbye() {
   display.html("<h3>Sure you wanna go?...</h3>");
   display.append("<p>Ending will delete everything!</p>");
-  display.append("<button onClick='shitSurvey()'>Add More Shit</button>");
-  display.append("<button onClick='shitAnalysis()'>Get Your Shit Together!</button>");
-  display.append("<button onClick='displayAndContinue()'>All Your Shit!</button>");
+  display.append("<button onClick='display.fadeOut(shitSurvey)'>Add More Shit</button>");
+  display.append("<button onClick='display.fadeOut(shitAnalysis)'>Get Your Shit Together!</button>");
+  display.append("<button onClick='display.fadeOut(displayAndContinue)'>All Your Shit!</button>");
   display.append("<button onClick='goodbye()'>I'm Done!</button>");
+  display.fadeIn();
 }
 
 function goodbye() {
   if (confirm("Sure you wanna go?")) {
-    shitList = [];
-    idValue = 0;
-    display.html("<h2>Good Luck!</h2>");
-    display.append("<button onClick='welcome()'>Start Again</button>");
+    display.fadeOut(function(){
+      shitList = [];
+      idValue = 0;
+      display.html("<h2>Good Luck!</h2>");
+      display.append("<button onClick='display.fadeOut(welcome)'>Start Again</button>");
+      display.fadeIn();
+    })
+    
   } else {
     return;
   }
