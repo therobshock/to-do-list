@@ -1,11 +1,15 @@
 // div id "display" is set to const display in home.js
+// below are elements that needed to be global
 var resultDiv = $("<div id='results'>");
 var listDiv = $("<div id='list'>");
 var optionsDiv = $("<div id='options'>");
 var sortButtonDiv = $("<div id='sort-buttons'>");
 var resHeader = $("<h3>");
 
+// this function renders a list of control buttons and decides which one is clicked
+// then it renders a sorted shortlist depending
 function shitAnalysis() {
+    // I used this array of objects to render this sort buttons
   const sortButtons = [
     {
       text: "Decide my Shit",
@@ -58,23 +62,23 @@ function shitAnalysis() {
             break;
         case "urgent":
             shitList.sort((a, b) => a.urgency - b.urgency);
-            resHeader.text("You said this Shit is Urgent...");
+            resHeader.text("Your most Urgent...");
             break;
         case "effect":
             shitList.sort((a, b) => a.effect - b.effect);
-            resHeader.text("You said this Shit will effect your Life...");
+            resHeader.text("Your most Life Effect...");
             break;
         case "danger":
             shitList.sort((a, b) => a.danger - b.danger);
-            resHeader.text("You said this Shit is Dangerous...");
+            resHeader.text("Your most Dangerous...");
             break;
         case "cost":
             shitList.sort((a, b) => a.cost - b.cost);
-            resHeader.text("You said this Shit will be Costly...");
+            resHeader.text("Your most Costly...");
             break;
         case "health":
             shitList.sort((a, b) => a.health - b.health);
-            resHeader.text("You said this Shit could be Unhealthy...");
+            resHeader.text("Your most Unhealthy...");
             break;
         }
         display.fadeOut(sortList);
@@ -82,6 +86,8 @@ function shitAnalysis() {
 
 }
 
+// this is the list that's rendered based on the button clicked
+// the sorted list is limited to three items and only the name of the item is listed
 function sortList() {
   var listTag = $("<ol>");
   sortButtonDiv.empty();

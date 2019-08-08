@@ -1,33 +1,28 @@
 const display = $("#display");
 
+// Our Welcome message with a button to get started.
+// Should I just render the onClick function to the button? Yes, I will.
 function welcome() {
-  const button = $("<button>");
-  const gifDiv = $("<div>");
-  const gif = $('<iframe src="https://giphy.com/embed/woTdBa435yy6A" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/get-well-then-woTdBa435yy6A">via GIPHY</a></p>')
-
-  // gifDiv.append(gif);
   display.html("<h3>Put your Shit here, get it sorted out...</h3>");
-  button.text("Get Started!");
-  display.append(button);
-  // display.append(gifDiv);
-
-  display.fadeIn("slow");
+  display.append("<button onClick='display.fadeOut(shitSurvey)'>Get Started!</button>");
   
-  button.on("click", function(){
-    display.fadeOut(shitSurvey);
-  });
+  display.fadeIn("slow");
 }
 
+// this gives users chance to go back to app before ending
+// three buttons are declared in survey.js
+// most buttons are rendered with onclick events tied to them
 function confirmGoodbye() {
   display.html("<h3>Sure you wanna go?...</h3>");
   display.append("<p>Ending will delete everything!</p>");
-  display.append("<button onClick='display.fadeOut(shitSurvey)'>Add More Shit</button>");
-  display.append("<button onClick='display.fadeOut(shitAnalysis)'>Get Your Shit Together!</button>");
-  display.append("<button onClick='display.fadeOut(displayAndContinue)'>All Your Shit!</button>");
+  display.append(addButton);
+  display.append(GYSTButton);
+  display.append(listButton);
   display.append("<button onClick='goodbye()'>I'm Done!</button>");
   display.fadeIn();
 }
 
+// once a confirm prompt is answered, tha app resets and renders button to start again
 function goodbye() {
   if (confirm("Sure you wanna go?")) {
     display.fadeOut(function(){
@@ -43,4 +38,5 @@ function goodbye() {
   }
 }
 
+// our initial function is called on page load
 welcome();
