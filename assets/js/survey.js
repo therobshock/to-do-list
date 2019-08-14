@@ -7,32 +7,38 @@ const surveyQuestions = [
   {
     question: "What type is Shit is this?",
     options: ["Home", "Work", "Social", "Personal"],
-    values: ["Home", "Work", "Social", "Personal"]
+    values: ["Home", "Work", "Social", "Personal"],
+    name: "type"
   },
   {
     question: "When should this get done?",
     options: ["Like, Yesterday!", "Now!", "Soon", "In a while", "It can wait"],
-    values: [1, 2, 3, 4, 5]
+    values: [1, 2, 3, 4, 5],
+    name: "urgency"
   },
   {
     question: "How much will this Shit affect other parts of your life?",
     options: ["Totally", "A lot", "A bit", "Some", "Not much if anything"],
-    values: [1, 2, 3, 4, 5]
+    values: [1, 2, 3, 4, 5],
+    name: "effect"
   },
   {
     question: "What if this Shit never gets done?",
     options: ["Disaster!", "Crisis!", "Major inconvenience", "Minor inconvenience", "Not much"],
-    values: [1, 2, 3, 4, 5]
+    values: [1, 2, 3, 4, 5],
+    name: "danger"
   },
   {
     question: "What would it cost if this Shit never gets done?",
     options: ["Financial Ruin!", "Budget Bust", "Bank may notice", "Slight rebudgeting", "Nada"],
-    values: [1, 2, 3, 4, 5]
+    values: [1, 2, 3, 4, 5],
+    name: "cost"
   },
   {
     question: "How could this Shit affect your health?",
     options: ["Hazardous!", "Somewhat Injurious", "Stressful", "Slight Stress", "It's Cool"],
-    values: [1, 2, 3, 4, 5]
+    values: [1, 2, 3, 4, 5],
+    name: "health"
   }
 ];
 
@@ -70,8 +76,12 @@ function shitSurvey() {
   display.fadeIn();
   
   $("#button").on("click", function(e) {
-    var answer = input.val();
-
+    if (index === 0) {
+      var answer = input.val();
+    } else {
+      var answer = $('input[name="survey"]:checked').val();
+    }
+    console.log(answer);
     if (!answer) {
     alert("You have to name it something"); 
     } else {
@@ -80,22 +90,23 @@ function shitSurvey() {
 
             if (index < surveyQuestions.length - 1) {
             index++;
-            input = $("<select>");
+            // input = $("<select>");
             
             questionDiv.text(surveyQuestions[index].question);
             form.html("");
             
             for (var i = 0; i < surveyQuestions[index].options.length; i++) {
                 var value = surveyQuestions[index].values[i];
+                // var name = surveyQuestions[index].name;
                 var option = surveyQuestions[index].options[i];
-                var optionTag = $("<option>")
+                input = $(`<input type='radio' name='survey' value='${value}'> ${option}<br>`);
+
+                if (i === 0) input.attr("checked", true);                
                 
-                optionTag.attr("value", value);
-                optionTag.text(option);
-                input.append(optionTag);
+                form.append(input);
                 
             }
-            form.append(input);
+            // form.append(input);
             display.fadeIn();
             
             } else {
